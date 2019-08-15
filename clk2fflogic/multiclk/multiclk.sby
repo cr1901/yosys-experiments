@@ -1,0 +1,19 @@
+[tasks]
+noclk2ff
+clk2ff
+
+[options]
+mode bmc
+depth 5
+noclk2ff: multiclock off
+clk2ff: multiclock on
+
+[engines]
+smtbmc --nounroll --dumpsmt2 yices
+
+[script]
+read_verilog -formal multiclk.v
+prep -nordff -top multiclk
+
+[files]
+multiclk.v
