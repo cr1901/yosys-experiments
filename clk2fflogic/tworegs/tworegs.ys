@@ -1,0 +1,8 @@
+read_verilog tworegs.v
+prep -top my_reg
+opt_clean
+show -format png -prefix tworegs_noclk2ff
+write_verilog -noexpr tworegs_clk2noff.v
+clk2fflogic
+show -format png -prefix tworegs_clk2ff
+write_verilog -noexpr tworegs_clk2ff.v
