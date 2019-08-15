@@ -11,16 +11,17 @@
 ## Rationale
 This simple example initiates two flip-flops in Verilog. One flip-flop uses
 `posedge` clocking, the other uses `negedge` clocking. This experiment shows
-in both `png` and
+in both `png` and Verilog (via `write_verilog`) using yosys internal cells the
+effect that the `clk2fflogic` pass has on transforming a given design.
 
 ## Conclusions
 `$ff` is an internal yosys cell which is implicitly clocked by the special,
 always-existing `$global_clock` signal. This is particularly useful for SMT
 proofs, which by design work with a single clock.
 
-Upon running `clk2fflogic`, all clocked logic for  in the design is transformed into
-`$ff` cells and muxes. New values for clocked logic `X` fed by clk `CLK` are
-only registered on the outputs when the two conditions are met:
+Upon running `clk2fflogic`, all clocked logic for  in the design is transformed
+into `$ff` cells and muxes. New values for clocked logic `X` fed by clk `CLK`
+are only registered on the outputs when the two conditions are met:
 
 * First the `CLK` feeding `X` must have transitioned appropriately. Either
   `posedge` or `negedge` logic is fine here.
