@@ -40,18 +40,22 @@ mentioned in `help write_smt2` from a yosys prompt.
 
 The state transition function `|<mod>_t|` makes no reference to any particular
 clock in its implementation. By design, this means that each time step can only
-be written in terms of a single implicit clock (that will become equivalent to
-the `$global_clock`).
+be written in terms of a single implicit clock- the `smt_clock`.
 
 If `multiclk` was _not_ specified, there are at least two cases to consider:
-1. Single clock domain- In this case, the single clock signal becomes
-   equivalent to the `smt_clock`.
+1. *Single clock domain*- In this case, the single clock signal becomes
+   equivalent to the `smt_clock`. A single clock domain's active edge being
+   responsible for _all_ state transition doesn't contradict `|<mod>_t|`'s
+   assumption that a single clock drives each component of the design state to
+   its next value.
 
-2. Multiple clock domains- In this case, `write_smt2` will treat all clock
+2. *Multiple clock domains*- In this case, `write_smt2` will treat all clock
    domain active edge transitions as happening on each time step; all clocks
-   at once become equivalent to the `smt_clock`. This will almost certainly
-   undesirable behavior, as it is unlikely that logic in two separate clock
-   domains will always have their state transitions trigger on each time step.
+   active edges at once become equivalent to the `smt_clock`.
+   This will almost certainly undesirable behavior, as it is unlikely that
+   logic in two separate clock domains will always have their state transitions
+   trigger on each time step (or the same active edge, for that matter; that
+   info is completely discarded from `smt_clock`!<sup>1</sup>).
 
    In the `multiclk.v` in particular, each bit of `counter_b`'s has a state
    transition function has which simply inverts the value of that particular bit.
@@ -98,8 +102,9 @@ signals of the form `$auto$rtlil.cc:[0-9]*:Eqx:*`, as the `Y` output of RTLIL
 ## Footnotes
 1. `smt_clock`/`$global_clock` does not really have a concept of
    `posedge`/`negedge`, but it makes my mental model easier to visualize it as
-   "always-`posedge`", where the `negedge` has _no effect whatsoever_ on the
-   proof.
+   "always-active edge", where the inactive edge has _no effect whatsoever_
+   on the proof. This mental model is invalid with multiple clock domains
+   when `multiclk` isn't specified.
 
 2. In other words, on each time step represented by `smt_clock`, the SMT solver
    is free to set `clk` to whatever value it wants. Normally, any value that
