@@ -5,7 +5,7 @@
 
 ## Rationale
 `multiclk.v` is copied verbatim from the supplementary examples zip file of one
-of Clifford's [presentations](http://www.clifford.at/papers/2016/yosys-smtbmc/).
+of Claire's [presentations](http://www.clifford.at/papers/2016/yosys-smtbmc/).
 
 `multiclk.v` is one of the simplest examples showing that a BMC proof can
 succeed or fail depending on whether the `multiclk` option was given to
