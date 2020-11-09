@@ -5,8 +5,8 @@
 `yosys -q tworegs.ys`
 
 ### Clean
-* Unix: `rm -rf *.dot *.png *_*.v`
-* Windows `rm -rf *.dot *.png *_*.v`
+* Unix: `rm -rf *.dot *.png *_*.v *_*.smt2`
+* Windows `rm -rf *.dot *.png *_*.v *_*.smt2`
 
 ## Rationale
 This simple example initiates two flip-flops in Verilog. One flip-flop uses
@@ -28,7 +28,7 @@ are only registered on the outputs when the two conditions are met:
 * Upon sensing the appropriate transition of `CLK`, new values on the output of
   `X` will be registered upon the next `posedge` transition of `$global_clock`.
 
-As of this writing (8-15-2019), `$ff` is only documented in the yosys
-[source code](https://github.com/YosysHQ/yosys/blob/master/techlibs/common/simlib.v#L1447-L1458)
+As of this writing (11-8-2020), `$ff` is only documented in the yosys
+[source code](https://github.com/YosysHQ/yosys/blob/master/techlibs/common/simlib.v#L1749-L1760)
 and not in the [manual](http://www.clifford.at/yosys/files/yosys_manual.pdf)
 (page 43 FIXME). I'll probably fix this soon.
