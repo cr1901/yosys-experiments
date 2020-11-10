@@ -1,0 +1,5 @@
+read_rtlil sampled.il
+prep -top top
+flatten
+clean -purge
+show -format png -prefix sampled_py

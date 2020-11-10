@@ -2,7 +2,16 @@
 
 _Right now, these are just unorganized notes that I want to commit._
 
-Compile with `yosys -q sampled.ys`, clean with `rm -rf sampled.png sampled.dot`.
+Compile with `yosys -q sampled.ys`. For nmigen sample, compile with:
+
+```
+python sampled.py generate -t il sampled.il
+yosys -q sampled_py.ys
+```
+
+Clean with `rm -rf sampled*.png sampled*.dot sampled.il`
+
+## Sorted Notes
 
 * Simulation is based on time slots. There are a number of time slots based in
   SystemVerilog; we only will look at Preponed (before assignments active
