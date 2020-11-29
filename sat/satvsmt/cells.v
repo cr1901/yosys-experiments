@@ -11,7 +11,7 @@ module SATVSMT_FF #(
 
 	initial Q = srval;
 
-	always @(posedge muxclk)
+	always @(posedge CLK)
 		if (LSR)
 			Q <= srval;
 		else
