@@ -1,0 +1,9 @@
+read_verilog satvsmt.v
+read_verilog -lib ./cells.v
+hierarchy -check
+proc
+techmap -map +/techmap.v
+techmap -D TECHMAP -map ./cells.v
+clean
+show -format png -prefix satvsmt_out
+write_json satvsmt_out.json

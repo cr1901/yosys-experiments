@@ -1,0 +1,12 @@
+read_verilog satvsmt.v
+rename satvsmt gold
+read_json satvsmt_out.json
+rename satvsmt gate
+read_verilog ./cells.v
+
+miter -equiv -make_assert gold gate miter_smt
+hierarchy -auto-top -check
+proc
+opt_clean
+write_verilog miter_smt.v
+write_smt2 miter_smt.smt2
