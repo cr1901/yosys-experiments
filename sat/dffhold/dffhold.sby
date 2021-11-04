@@ -1,0 +1,19 @@
+[options]
+mode prove
+depth 100
+
+[engines]
+smtbmc --nounroll --dumpsmt2 yices
+
+[script]
+read_verilog dffhold.v
+rename top gold
+read_verilog dffhold.v
+rename top gate
+miter -equiv -make_assert gold gate dffhold_miter
+hierarchy -top dffhold_miter
+proc
+opt_clean
+
+[files]
+dffhold.v
