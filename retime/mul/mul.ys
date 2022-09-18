@@ -1,0 +1,11 @@
+read_verilog mul.v
+design -push-copy
+chparam -set PIPELINE_DEPTH 0 mcve
+synth_ecp5 -retime -nodsp -json pipe_mul.json
+opt_clean
+show -format png -prefix pipe_mul
+design -pop
+chparam -set PIPELINE_DEPTH 0 mcve
+synth_ecp5 -nodsp -json comb_mul.json
+opt_clean
+show -format png -prefix comb_mul
