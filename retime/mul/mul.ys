@@ -2,11 +2,13 @@ read_verilog mul.v
 # chparam -set INPUT_PIPELINE_DEPTH 1 mcve
 # chparam -set OUTPUT_PIPELINE_DEPTH 1 mcve
 design -push-copy
+
 chparam -set INPUT_PIPELINE_DEPTH 1 mcve
 chparam -set OUTPUT_PIPELINE_DEPTH 1 mcve
 synth_ecp5 -retime -nodsp -json pipe_mul.json
 opt_clean
 show -format png -prefix pipe_mul
+
 design -pop
 chparam -set INPUT_PIPELINE_DEPTH 1 mcve
 chparam -set OUTPUT_PIPELINE_DEPTH 1 mcve
